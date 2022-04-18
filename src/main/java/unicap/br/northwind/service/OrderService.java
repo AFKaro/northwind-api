@@ -1,27 +1,20 @@
 package unicap.br.northwind.service;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.exception.SQLGrammarException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import unicap.br.northwind.domain.models.Customer;
 import unicap.br.northwind.domain.models.Order;
-import unicap.br.northwind.domain.models.OrderDetail;
 import unicap.br.northwind.dtos.mapper.OrderMapper;
-import unicap.br.northwind.dtos.request.CustomerRequest;
-import unicap.br.northwind.dtos.request.OrderDetailRequest;
 import unicap.br.northwind.dtos.request.OrderRequest;
-import unicap.br.northwind.dtos.response.ErrorResponse;
-import unicap.br.northwind.exceptions.InvalidFieldException;
 import unicap.br.northwind.exceptions.NotFoundException;
 import unicap.br.northwind.exceptions.NotSavedException;
 import unicap.br.northwind.repository.OrderRepository;
-import unicap.br.northwind.utils.ModelUtil;
 
 import javax.transaction.Transactional;
+import java.sql.SQLException;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.Random;
 
 
 @Service
@@ -36,7 +29,7 @@ public class OrderService {
 
     @Transactional
     public Order registerOrder(OrderRequest orderRequest) throws
-            NotSavedException {
+            NotSavedException, SQLException {
         OrderMapper mapper = new OrderMapper();
         try {
             Order order = new Order();
@@ -50,6 +43,8 @@ public class OrderService {
                             order.getOrderID()));
 
             return order;
+        } catch (SQLGrammarException e) {
+            throw e.getSQLException();
         } catch (Exception e) {
             throw new NotSavedException();
         }

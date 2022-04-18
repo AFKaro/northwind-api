@@ -31,7 +31,7 @@ public class CustomerController {
             Customer customer = service.registerCustomer(customerRequest);
             return ResponseEntity.ok(new MessageResponse(MessageEnum.REGISTERED.getMessage(), customer));
         } catch (Exception e) {
-            return ResponseEntity.ok(new ErrorResponse(e.getMessage()));
+            return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
         }
     }
 
@@ -44,7 +44,7 @@ public class CustomerController {
             Customer customer = service.editCustomer(idCustomer, customerRequest);
             return ResponseEntity.ok(new MessageResponse(MessageEnum.EDITED.getMessage(), customer));
         } catch (Exception e) {
-            return ResponseEntity.ok(new ErrorResponse(e.getMessage()));
+            return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
         }
     }
 
@@ -57,7 +57,7 @@ public class CustomerController {
             Customer customer = service.getCustomer(idCustomer);
             return ResponseEntity.ok(new MessageResponse(MessageEnum.EDITED.getMessage(), customer));
         } catch (Exception e) {
-            return ResponseEntity.ok(new ErrorResponse(e.getMessage()));
+            return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
         }
     }
 
@@ -70,7 +70,7 @@ public class CustomerController {
             List<Customer> customers = service.getAllCustomers();
             return ResponseEntity.ok(new MessageResponse(MessageEnum.FOUND.getMessage(), customers));
         } catch (Exception e) {
-            return ResponseEntity.ok(new ErrorResponse(e.getMessage()));
+            return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
         }
     }
 
@@ -83,7 +83,7 @@ public class CustomerController {
             List<OrdersAndCustomersReportResponse> report = service.getOrdersAndCustomersReport();
             return ResponseEntity.ok(new MessageResponse(MessageEnum.FOUND.getMessage(), report));
         } catch (Exception e) {
-            return ResponseEntity.ok(new ErrorResponse(e.getMessage()));
+            return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
         }
     }
 
@@ -96,7 +96,7 @@ public class CustomerController {
             Customer customer = service.deleteCustomer(idCustomer);
             return ResponseEntity.ok(new MessageResponse(MessageEnum.DELETED.getMessage(), customer));
         } catch (Exception e) {
-            return ResponseEntity.ok(new ErrorResponse(e.getMessage()));
+            return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
         }
     }
 }

@@ -36,7 +36,7 @@ public class ProductController {
             Product product = service.getProduct(idProduct);
             return ResponseEntity.ok(new MessageResponse(MessageEnum.FOUND.getMessage(), product));
         } catch (Exception e) {
-            return ResponseEntity.ok(new ErrorResponse(e.getMessage()));
+            return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
         }
     }
 
@@ -49,7 +49,7 @@ public class ProductController {
             List<Product> products = service.getAllProduct();
             return ResponseEntity.ok(new MessageResponse(MessageEnum.FOUND.getMessage(), products));
         } catch (Exception e) {
-            return ResponseEntity.ok(new ErrorResponse(e.getMessage()));
+            return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
         }
     }
 

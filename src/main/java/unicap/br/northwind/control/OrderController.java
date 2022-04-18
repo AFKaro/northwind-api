@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import unicap.br.northwind.domain.enums.MessageEnum;
 import unicap.br.northwind.domain.models.Order;
 import unicap.br.northwind.domain.models.OrderDetail;
-import unicap.br.northwind.dtos.request.OrderDetailRequest;
 import unicap.br.northwind.dtos.request.OrderRequest;
 import unicap.br.northwind.dtos.response.ErrorResponse;
 import unicap.br.northwind.dtos.response.MessageResponse;
@@ -36,7 +35,14 @@ public class OrderController {
             Order order = service.registerOrder(orderRequest);
             return ResponseEntity.ok(new MessageResponse(MessageEnum.REGISTERED.getMessage(), order));
         } catch (Exception e) {
-            return ResponseEntity.ok(new ErrorResponse(e.getMessage()));
+            String errorMessage = e.getMessage();
+
+            if (e.getCause().getCause().getMessage().equals("The transaction ended in the trigger. The batch has been aborted.")) {
+                errorMessage = "A compra não pôde ser registrada! " +
+                        "Motivo: cliente é de um pais diferente do fornecedor do produto pedido e exedeu o limite de 5 compras no mês";
+            }
+
+            return ResponseEntity.badRequest().body(new ErrorResponse(errorMessage));
         }
     }
 
@@ -49,7 +55,7 @@ public class OrderController {
             Order order = service.getOrder(idOrder);
             return ResponseEntity.ok(new MessageResponse(MessageEnum.FOUND.getMessage(), order));
         } catch (Exception e) {
-            return ResponseEntity.ok(new ErrorResponse(e.getMessage()));
+            return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
         }
     }
 
@@ -62,7 +68,7 @@ public class OrderController {
             List<Order> orders = service.getAllOrder();
             return ResponseEntity.ok(new MessageResponse(MessageEnum.FOUND.getMessage(), orders));
         } catch (Exception e) {
-            return ResponseEntity.ok(new ErrorResponse(e.getMessage()));
+            return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
         }
     }
 
@@ -83,7 +89,7 @@ public class OrderController {
 
             return ResponseEntity.ok(new MessageResponse(MessageEnum.FOUND.getMessage(), orderDetails));
         } catch (Exception e) {
-            return ResponseEntity.ok(new ErrorResponse(e.getMessage()));
+            return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
         }
     }
 
