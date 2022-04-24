@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
+import NewOrderModal from "./NewOrderModal";
 
 type TOrder = {
     orderID: number;
@@ -36,6 +37,7 @@ const OrdersPage: React.FC = () => {
     return (
         <div>
             <p className="page_title">Orders</p>
+            <NewOrderModal fetchOrders={fetchOrders}/>
             <Table striped bordered hover>
                 <thead>
                     <tr>
