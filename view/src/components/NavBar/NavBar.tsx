@@ -17,7 +17,7 @@ const NavBar = () => {
                     <img src="https://cdn.logo.com/hotlink-ok/logo-social-sq.png" alt="store_logo" style={{width: "64px"}}/>
                 </Navbar.Brand>
                 <Nav className="w-100 h-100 d-flex align-items-center justify-content-center flex-column">
-                    <Link to={"/home"} className="nav-link mt-4">
+                    <Link to={"/"} className="nav-link mt-4">
                         <HomeOutlined />
                     </Link>
                     <Link to={"/orders"} className="nav-link mt-4">
