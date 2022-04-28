@@ -13,7 +13,9 @@ import unicap.br.northwind.repository.OrderRepository;
 
 import javax.transaction.Transactional;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -36,6 +38,10 @@ public class OrderService {
 
             mapper.map(orderRequest, order);
 
+            if (Objects.isNull(order.getOrderDate())){
+                order.setOrderDate(new Date());
+                order.setShippedDate(new Date());
+            }
             repository.save(order);
 
             orderRequest.getOrderDetails().forEach(orderDetail ->

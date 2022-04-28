@@ -14,7 +14,7 @@ const NavBar = () => {
         <Navbar style={{ width: "150px" }} className="p-0 vh-100 border-end sticky-top">
             <Container className="d-flex flex-column h-100 p-0">
                 <Navbar.Brand href="/" id="navbar_brand">
-                    <img src="https://cdn.logo.com/hotlink-ok/logo-social-sq.png" alt="store_logo" style={{width: "64px"}}/>
+                    <img src="https://images.vexels.com/media/users/3/200097/isolated/preview/942820836246f08c2d6be20a45a84139-carrinho-de-compras-icon-carrinho-de-compras.png" alt="store_logo" style={{width: "64px"}}/>
                 </Navbar.Brand>
                 <Nav className="w-100 h-100 d-flex align-items-center justify-content-center flex-column">
                     <Link to={"/"} className="nav-link mt-4">
